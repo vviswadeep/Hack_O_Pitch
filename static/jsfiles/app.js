@@ -37,7 +37,25 @@ const adminlogin = {
           }
         },
   methods:{
-
+    submit: async function(){
+      if(this.adminusername=="" || this.adminpassword==""){
+        alert("The Username and password should not be blank");
+      }
+      else if(this.adminusername.search('/') != -1 || this.adminpassword.search('/') != -1){
+        alert("The Username and Password should not contain '/' character");
+      }
+      else{
+        url="/api/adminlogin/"+this.adminusername+"/"+this.adminpassword;
+        a= await fetch(url);
+        response=await a.json();
+        if(response.key){
+          console.log("DONE")
+        }
+        else{
+          console.log("NOT AVAILABLE")
+        }
+      }
+    }
   },
   template:`<div>
 
@@ -50,7 +68,7 @@ const adminlogin = {
         <input class="form-control" id="exampleFormControlInput2" v-model="adminpassword"><br>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked">Remember me</label><br><br>
-        <button type="button" class="btn btn-primary">Submit</button><br><br>
+        <button type="button" class="btn btn-primary" v-on:click="submit">Submit</button><br><br>
       </div>
     </div>`
 }
@@ -63,7 +81,9 @@ const employeelogin = {
           }
         },
   methods:{
+    submit: async function(){
 
+    }
   },
   template:`<div>
     <br><br><br><br><br>
@@ -77,7 +97,7 @@ const employeelogin = {
         <input class="form-control" id="exampleFormControlInput2" v-model="employeepassword"><br>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked">Remember me</label><br><br>
-        <button type="button" class="btn btn-primary">Submit</button><br><br>
+        <button type="button" class="btn btn-primary" v-on:click="submit">Submit</button><br><br>
       </div>
     </div>`
 }
@@ -90,7 +110,9 @@ const userlogin = {
           }
         },
   methods:{
+    submit: async function(){
 
+    }
   },
   template:`<div>
     <br><br><br><br><br>
@@ -104,11 +126,49 @@ const userlogin = {
         <input class="form-control" id="exampleFormControlInput2" v-model="userpassword"><br>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked">Remember me</label><br><br>
-        <button type="button" class="btn btn-primary">Submit</button><br><br>
+        <button type="button" class="btn btn-primary" v-on:click="submit">Submit</button><br><br>
       </div>
     </div>`
 }
 
+const adminpage = {
+  data: function() {
+    return {
+          }
+        },
+  methods:{
+
+  },
+  template:`<div>
+    ADMIN PAGE
+    </div>`
+}
+
+const employeepage = {
+  data: function() {
+    return {
+          }
+        },
+  methods:{
+
+  },
+  template:`<div>
+    ADMIN PAGE
+    </div>`
+}
+
+const userpage = {
+  data: function() {
+    return {
+          }
+        },
+  methods:{
+
+  },
+  template:`<div>
+    ADMIN PAGE
+    </div>`
+}
 
 const routes = [
 {path :'/', name: 'home', component: homepage},
