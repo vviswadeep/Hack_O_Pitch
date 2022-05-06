@@ -60,6 +60,22 @@ class EmployeeLoginAPI(Resource):
     else:
       return "Employeeid or Password or Societyname Doesn't match"
 
+class BookingAPI(Resource):
+  def get(self, username, societyname, key, typeofwaste):
+    try:
+      user=user_login.query.filter_by(username=username,key=key).first()
+    except:
+      raise InternalServerError(status_code=500)
+    if user:
+      ct = datetime.now()
+      booking=bookings(username=username,societyname=societyname,typeofwaste=typeofwaste,timestamp=ct)
+      db.session.add(booking)
+      db.session.commit()
+      return "Booking Successfull"
+    else:
+      return "Unauthorized user"
+
 api.add_resource(AdminLoginAPI,"/api/adminlogin/<string:username>/<string:password>")
 api.add_resource(UserLoginAPI,"/api/userlogin/<string:username>/<string:password>/<string:societyname>")
 api.add_resource(EmployeeLoginAPI,"/api/employeelogin/<string:employeeid>/<string:password>/<string:societyname>")
+api.add_resource(BookingAPI,"/api/user/bookings/<string:username>/<string:societyname>/<string:key>/<string:typeofwaste>")

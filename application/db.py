@@ -26,3 +26,10 @@ class employee_login(db.Model):
 	password=db.Column(db.String, nullable=False)
 	societyname=db.Column(db.String, db.ForeignKey("admin_login.societyname"), primary_key=True)
 	key=db.Column(db.String)
+
+class bookings(db.Model):
+	__tablename__='bookings'
+	username=db.Column(db.String, db.ForeignKey("user_login.username"), primary_key=True)
+	societyname=db.Column(db.String, db.ForeignKey("user_login.societyname"), primary_key=True)
+	typeofwaste=db.Column(db.Integer)
+	timestamp=db.Column(db.String)

@@ -49,7 +49,8 @@ const adminlogin = {
         a= await fetch(url);
         response=await a.json();
         if(response.key){
-          console.log("DONE")
+          this.$store.state.key=response.key;
+          this.$router.push('/adminpage')
         }
         else{
           console.log("NOT AVAILABLE")
@@ -82,7 +83,24 @@ const employeelogin = {
         },
   methods:{
     submit: async function(){
-
+      if(this.employeeid=="" || this.employeepassword==""){
+        alert("The Username and password should not be blank");
+      }
+      else if(this.employeeid.search('/') != -1 || this.employeepassword.search('/') != -1){
+        alert("The Username and Password should not contain '/' character");
+      }
+      else{
+        url="/api/employeelogin/"+this.employeeid+"/"+this.employeepassword+"/"+this.societyname;
+        a= await fetch(url);
+        response=await a.json();
+        if(response.key){
+          this.$store.state.key=response.key;
+          this.$router.push('/employeepage')
+        }
+        else{
+          console.log("NOT AVAILABLE")
+        }
+      }
     }
   },
   template:`<div>
@@ -111,7 +129,24 @@ const userlogin = {
         },
   methods:{
     submit: async function(){
-
+      if(this.userusername=="" || this.userpassword==""){
+        alert("The Username and password should not be blank");
+      }
+      else if(this.userusername.search('/') != -1 || this.userpassword.search('/') != -1){
+        alert("The Username and Password should not contain '/' character");
+      }
+      else{
+        url="/api/employeelogin/"+this.userusername+"/"+this.userpassword+"/"+this.societyname;
+        a= await fetch(url);
+        response=await a.json();
+        if(response.key){
+          this.$store.state.key=response.key;
+          this.$router.push('/userpage')
+        }
+        else{
+          console.log("NOT AVAILABLE")
+        }
+      }
     }
   },
   template:`<div>
@@ -153,7 +188,7 @@ const employeepage = {
 
   },
   template:`<div>
-    ADMIN PAGE
+    EMPLOYEE PAGE
     </div>`
 }
 
@@ -166,7 +201,7 @@ const userpage = {
 
   },
   template:`<div>
-    ADMIN PAGE
+    USER PAGE
     </div>`
 }
 
@@ -175,6 +210,9 @@ const routes = [
 {path :'/adminlogin', name: 'adminlogin', component: adminlogin},
 {path :'/userlogin', name: 'userlogin', component: userlogin},
 {path :'/employeelogin', name: 'employeelogin', component: employeelogin},
+{path :'/adminpage', name: 'adminpage', component: adminpage},
+{path :'/employeepage', name: 'employeepage', component: employeepage},
+{path :'/userpage', name: 'userpage', component: userpage},
 ]
 
 const router = new VueRouter({
