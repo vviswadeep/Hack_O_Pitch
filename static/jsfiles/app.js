@@ -1,5 +1,9 @@
 const store = new Vuex.Store({
   state: {
+    adminusername:5,
+    userusername:5,
+    employeeusername:5,
+    key:5,
   },
   mutations: {
 
@@ -21,52 +25,29 @@ const homepage = {
       this.$router.push('/employeelogin')
     },
   },
-  template:`<div>
-              <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="text-align:left;">
-                  <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Logo</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                      <ul class="navbar-nav">
-                        <li class="nav-item">
-                          <button type="button" class="btn btn-dark nav-link" v-on:click="userlogin">User Login</button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="btn btn-dark nav-link" v-on:click="employeelogin">Employee Login</button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="btn btn-dark nav-link" v-on:click="adminlogin">Admin Login</button>
-                        </li>  
-                        <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown</a>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Link</a></li>
-                            <li><a class="dropdown-item" href="#">Another link</a></li>
-                            <li><a class="dropdown-item" href="#">A third link</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
+  template:`<div>    
     <br><br>
     This is Home Page</div>`
 }
 
 const adminlogin = {
+  data: function() {
+    return {adminusername:"",
+            adminpassword:"",
+          }
+        },
   methods:{
 
   },
   template:`<div>
+
     <br><br><br><br><br>
     <div class="container-sm border rounded">
       <h2>Admin Login </h2>
-        <label for="exampleFormControlInput1" class="form-label">Employee ID</label>
-        <input class="form-control" id="exampleFormControlInput1"><br>
+        <label for="exampleFormControlInput1" class="form-label">Username</label>
+        <input class="form-control" id="exampleFormControlInput1" v-model="adminusername"><br>
         <label for="exampleFormControlInput2" class="form-label">Password</label>
-        <input class="form-control" id="exampleFormControlInput2"><br>
+        <input class="form-control" id="exampleFormControlInput2" v-model="adminpassword"><br>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked">Remember me</label><br><br>
         <button type="button" class="btn btn-primary">Submit</button><br><br>
@@ -75,6 +56,12 @@ const adminlogin = {
 }
 
 const employeelogin = {
+  data: function() {
+    return {employeeid:"",
+            employeepassword:"",
+            societyname:"",
+          }
+        },
   methods:{
 
   },
@@ -83,11 +70,11 @@ const employeelogin = {
     <div class="container-sm border rounded">
       <h2>Employee Login </h2>
         <label for="exampleFormControlInput3" class="form-label">Society Name</label>
-        <input class="form-control" id="exampleFormControlInput3"><br>
-        <label for="exampleFormControlInput1" class="form-label">Username</label>
-        <input class="form-control" id="exampleFormControlInput1"><br>
+        <input class="form-control" id="exampleFormControlInput3" v-model="societyname"><br>
+        <label for="exampleFormControlInput1" class="form-label">Employee ID</label>
+        <input class="form-control" id="exampleFormControlInput1" v-model="employeeid"><br>
         <label for="exampleFormControlInput2" class="form-label">Password</label>
-        <input class="form-control" id="exampleFormControlInput2"><br>
+        <input class="form-control" id="exampleFormControlInput2" v-model="employeepassword"><br>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked">Remember me</label><br><br>
         <button type="button" class="btn btn-primary">Submit</button><br><br>
@@ -96,6 +83,12 @@ const employeelogin = {
 }
 
 const userlogin = {
+  data: function() {
+    return {userusername:"",
+            userpassword:"",
+            societyname:"",
+          }
+        },
   methods:{
 
   },
@@ -103,12 +96,12 @@ const userlogin = {
     <br><br><br><br><br>
     <div class="container-sm border rounded">
       <h2>User Login </h2>
-        <label for="exampleFormControlInput3" class="form-label">Society Name</label>
-        <input class="form-control" id="exampleFormControlInput3"><br>
+        <label for="exampleFormControlInput3" class="form-label" >Society Name</label>
+        <input class="form-control" id="exampleFormControlInput3" v-model="societyname"><br>
         <label for="exampleFormControlInput1" class="form-label">Username</label>
-        <input class="form-control" id="exampleFormControlInput1"><br>
+        <input class="form-control" id="exampleFormControlInput1" v-model="userusername"><br>
         <label for="exampleFormControlInput2" class="form-label">Password</label>
-        <input class="form-control" id="exampleFormControlInput2"><br>
+        <input class="form-control" id="exampleFormControlInput2" v-model="userpassword"><br>
         <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
         <label class="form-check-label" for="flexCheckChecked">Remember me</label><br><br>
         <button type="button" class="btn btn-primary">Submit</button><br><br>
@@ -135,6 +128,15 @@ let app = new Vue({
     },
     router:router,
     store:store,
-    methods: {
+    methods:{
+    adminlogin: function(){
+      this.$router.push('/adminlogin')
     },
+    userlogin: function(){
+      this.$router.push('/userlogin')
+    },
+    employeelogin: function(){
+      this.$router.push('/employeelogin')
+    },
+  },
   })
